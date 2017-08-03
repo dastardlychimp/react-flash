@@ -6,8 +6,10 @@ import ListItemText from 'material-ui/List/ListItem'
 import ListItemSecondaryAction from 'material-ui/List/ListItemSecondaryAction'
 import Button from 'material-ui/Button'
 import ButtonIcon from 'material-ui/Button'
+import Badge from 'material-ui/Badge'
 import DeleteIcon from 'material-ui-icons/Delete'
 import CreateIcon from 'material-ui-icons/Create'
+import ChromeReaderModeIcon from 'material-ui-icons/ChromeReaderMode'
 
 function FlashcardSetList(props) {
     return (
@@ -26,6 +28,9 @@ function FlashcardSetListItem(set) {
             divider
             button
         >
+            <Badge badgeContent={ set.flashcards.length } color = "primary">
+                <ChromeReaderModeIcon />
+            </Badge>
             <ListItemText primary={ set.name } /> 
             <ListItemSecondaryAction>
                 <ButtonIcon>

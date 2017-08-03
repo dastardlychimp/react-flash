@@ -1,19 +1,18 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Link, Redirect } from 'react-router-dom'
 import FlashcardSetList from './FlashcardSetList'
 
 export default function App({store}) {
     return (
         <Provider store = { store }>
             <BrowserRouter>
-                <div>
+                <Switch>
+                    <Route path='/sets' component = { FlashcardSetList } />
                     <Route path='/'>
-                        Hello World!
-                        <Link to='/sets'>Flashcard Sets</Link>
+                        <Redirect to='/sets' />
                     </Route>
-                    <Route path = '/sets' component = { FlashcardSetList } />
-                </div>
+                </Switch>
             </BrowserRouter>
         </Provider>
     )

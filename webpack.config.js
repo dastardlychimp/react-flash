@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const GoogleFontsPlugin = require("google-fonts-webpack-plugin")
 
 module.exports = {
     entry: {
@@ -13,7 +14,12 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'React-Flash'
         }),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new GoogleFontsPlugin({
+            fonts: [
+                { family: "Roboto", variants: [ "400", "700italic" ] }
+            ]
+        })
     ],
     devtool: 'inline-source-map',
     devServer: {

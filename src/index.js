@@ -34,7 +34,7 @@ const testState = {
 const sagaMiddleware = createSagaMiddleware()
 const middleware = applyMiddleware(sagaMiddleware)
 
-const store = createStore(rootReducer, middleware)
+const store = createStore(rootReducer, testState, middleware)
 
 function init() {
     createContainer();

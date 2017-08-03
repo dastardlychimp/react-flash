@@ -15,16 +15,17 @@ module.exports = {
             title: 'React-Flash'
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new GoogleFontsPlugin({
-            fonts: [
-                { family: "Roboto", variants: [ "400", "700italic" ] }
-            ]
-        })
+        // new GoogleFontsPlugin({
+        //     fonts: [
+        //         { family: "Roboto", variants: [ "400", "700italic" ] }
+        //     ]
+        // })
     ],
     devtool: 'inline-source-map',
     devServer: {
         contentBase: './build',
-        hot: true
+        hot: true,
+        historyApiFallback: true
     },
     module: {
         rules: [

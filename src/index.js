@@ -1,14 +1,14 @@
 import React from 'react'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import ReactDOM from 'react-dom'
 import createSagaMiddleware from 'redux-saga'
 import rootReducer from './reducers/index'
 import App from './components/App'
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
+// import injectTapEventPlugin from 'react-tap-event-plugin';
+// // Needed for onTouchTap
+// // http://stackoverflow.com/a/34015469/988941
+// injectTapEventPlugin();
 
 const testState = {
     sets: [
@@ -31,8 +31,9 @@ const testState = {
     ]
 }
 
-const sagaMiddleware = createSagaMiddleware()
-const middleware = applyMiddleware(sagaMiddleware)
+const sagaMiddleware   = createSagaMiddleware()
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const middleware = composeEnhancers(applyMiddleware(sagaMiddleware))
 
 const store = createStore(rootReducer, testState, middleware)
 

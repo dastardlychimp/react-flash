@@ -6,3 +6,8 @@ export const retrievedFlashcardSet = (sets) => ({
     type: 'FLASHCARD_SET_RETRIEVED',
     payload: sets
 })
+
+export const deleteFlashcardSet = (setId) => ({
+    type: 'FLASHCARD_SET_DELETE',
+    payload: setId
+})

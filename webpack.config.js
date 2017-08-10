@@ -8,7 +8,8 @@ module.exports = {
     },
     output: {
         filename: '[name].bundle.js',
-        path: __dirname + '/build'
+        path: __dirname + '/build',
+        publicPath: '/'
     },
     plugins: [
         new HtmlWebpackPlugin({

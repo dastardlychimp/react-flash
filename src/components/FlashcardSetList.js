@@ -6,22 +6,16 @@ import List from 'material-ui/List/List'
 import Button from 'material-ui/Button'
 import AddIcon from 'material-ui-icons/Add'
 
+import reactComponentWithOpenState from '../helpers/reactComponentWithOpenState'
 import FlashcardSetListItem from './FlashcardSetListItem'
 import FlashcardSetNew from './FlashcardSetNewForm'
 import { deleteFlashcardSet } from '../actions/index'
 
 
-
-function  FlashcardItemWithActions(set, deleteAction) {
-
-}
-class FlashcardSetList extends React.PureComponent {
+class FlashcardSetList extends reactComponentWithOpenState(true) {
     constructor(props) {
         super(props)
-
-        this.state = { openCreate: false }
-        this.createOpen = () => this.setState({ openCreate: true })
-        this.closeOpen = () => this.setState({ openCreate: false })
+        this.state = this.stateOpenInit()
     }
 
     render() {
@@ -38,13 +32,13 @@ class FlashcardSetList extends React.PureComponent {
                         })
                     }
                 </List>
-                <Button onClick = { this.createOpen } fab>
+                <Button onClick = { this.stateOpenTrue } fab>
                     <AddIcon />
                 </Button>
                 <FlashcardSetNew
-                    open = { this.state.openCreate }
-                    onCancel = { this.closeOpen }
-                    onSubmit = { this.closeOpen }
+                    open = { this.stateOpenGet() }
+                    onCancel = { this.stateOpenFalse }
+                    onSubmit = { this.stateOpenFalse }
                 />
             </div>
         )

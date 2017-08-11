@@ -11,18 +11,16 @@ import DeleteIcon from 'material-ui-icons/Delete'
 import CreateIcon from 'material-ui-icons/Create'
 import ChromeReaderModeIcon from 'material-ui-icons/ChromeReaderMode'
 
+import reactComponentWithOpenState from '../helpers/reactComponentWithOpenState'
 import ConfirmDelete from './ConfirmDelete'
 import callableList from '../helpers/callableList'
 
 
-class FlashcardSetListItem extends React.Component {
+class FlashcardSetListItem extends reactComponentWithOpenState(true) {
     constructor(props) {
         super(props)
-        this.state = { confirmDeleteOpen: false }
-
-        this.deleteSet          = this.props.deleteSet.bind(this, this.props.set.id)
-        this.confirmDeleteOpen  = () => this.setState({ confirmDeleteOpen: true })
-        this.confirmDeleteClose = () => this.setState({ confirmDeleteOpen: false })
+        this.state     = this.stateOpenInit()
+        this.deleteSet = this.props.deleteSet.bind(this, this.props.set.id)
     }
 
     render() {
@@ -34,10 +32,10 @@ class FlashcardSetListItem extends React.Component {
                 button
             >
                  <ConfirmDelete
-                    onDelete = { callableList(this.deleteSet, this.confirmDeleteClose) }
-                    onCancel = { this.confirmDeleteClose }
+                    onDelete = { callableList(this.deleteSet, this.stateOpenFalse ) }
+                    onCancel = { this.stateOpenFalse }
                     message = "Are you sure you want to delete this flashcard set?"
-                    open = { this.state.confirmDeleteOpen }
+                    open = { this.stateOpenGet() }
                 /> 
                 <Badge badgeContent = { set.flashcards.length } color = "primary">
                     <ChromeReaderModeIcon />
@@ -47,7 +45,7 @@ class FlashcardSetListItem extends React.Component {
                     <ButtonIcon>
                         <CreateIcon />
                     </ButtonIcon>
-                    <ButtonIcon onClick = { this.confirmDeleteOpen } >
+                    <ButtonIcon onClick = { this.stateOpenTrue } >
                         <DeleteIcon />
                     </ButtonIcon>
                 </ListItemSecondaryAction>

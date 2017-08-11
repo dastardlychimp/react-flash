@@ -13,7 +13,7 @@ import App from './components/App'
 const testState = {
     sets: [
         {
-            id: 15214,
+            id: 15,
             name: 'Farm Animals',
             flashcards: [
                 { id: 12521, faceA: 'Moo?', faceB: 'Cow' },

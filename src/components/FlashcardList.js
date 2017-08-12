@@ -1,21 +1,39 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import FlashcardListItem from './FlashcardListItem'
+// material-ui
+import Button from 'material-ui/Button'
 
-function FlashcardList(props) {
-    return (
-        <div>
-            { 
-                props.flashcards.map((flashcard) => (
-                    <FlashcardListItem
-                        key = { flashcard.id }
-                        flashcard = { flashcard } 
-                    />
-                ))
-            }
-        </div>
-    )
+import FlashcardListItem from './FlashcardListItem'
+import FlashcardNewForm from './FlashcardNewForm'
+
+class FlashcardList extends React.Component {
+    state = { open: false }
+
+    open  = () => this.setState({ open: true })
+    close = () => this.setState({ open: false })
+
+    render() {
+        return (
+            <div>
+                { 
+                    this.props.flashcards.map((flashcard) => (
+                        <FlashcardListItem
+                            key = { flashcard.id }
+                            flashcard = { flashcard } 
+                        />
+                    ))
+                }
+                <Button onClick = { this.open } >
+                    Open
+                </Button>
+                <FlashcardNewForm 
+                    open = { this.state.open }
+                    onSubmit = { this.close }
+                />
+            </div>
+        )
+    }
 }
 
 function mapStateToProps(state, props) {

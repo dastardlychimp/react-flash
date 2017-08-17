@@ -8,7 +8,6 @@ export default function reducerSets(state = [], action) {
             const { setId, front, back } = action.payload
             return modifySet(state, setId, (set) => {
                 const fc = createFlashcard(front, back)
-                console.log(fc)
                 return {
                     ...set,
                     flashcards: [fc, ...set.flashcards]

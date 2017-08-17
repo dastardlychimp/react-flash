@@ -2,7 +2,9 @@
 import React from 'react'
 
 // material-ui
-import Card, { CardContent } from 'material-ui/Card'
+import Card, { CardContent, CardActions } from 'material-ui/Card'
+import IconButton from 'material-ui/IconButton'
+import DeleteIcon from 'material-ui-icons/Delete'
 
 // { id: 12521, front: 'Moo?', back: 'Cow' }
 class FlashcardListItem extends React.PureComponent {
@@ -21,6 +23,11 @@ class FlashcardListItem extends React.PureComponent {
                     <CardContent>
                         { this.state.face ? flashcard.front : flashcard.back }
                     </CardContent>
+                    <CardActions>
+                        <IconButton>
+                            <DeleteIcon />
+                        </IconButton>
+                    </CardActions>
                 </Card>
             </div>
         )

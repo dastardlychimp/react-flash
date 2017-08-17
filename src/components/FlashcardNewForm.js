@@ -64,7 +64,6 @@ function FlashcardNewForm(props) {
     const { onSubmit, createFlashcard, setId } = props
 
     const submit = (form, props) => {
-        console.log(form)
         createFlashcard(form)
         callIfFunction(onSubmit, form)
         props.reset()

@@ -2,36 +2,62 @@ import React from 'react'
 import { Form, Field } from 'redux-form'
 // material-ui
 import Button from 'material-ui/Button'
+import TextField from 'material-ui/TextField'
+import AddIcon from 'material-ui-icons/Add'
 
 import formDialog from './high/formDialog'
+import { required } from '../helpers/validation'
 
 const FlashcardFormDialog = formDialog('newFlashcard')
+const validation = [
+    required
+]
 
 function FaceField(props) {
-    return <textarea />
+    const { label, input, meta: { error, touched, dirty } } = props
+    const visibleError = (touched || dirty) && !!error
+
+    return <TextField
+        inputProps = { input }
+        label      = { label }
+        required   = { true }
+        multiline  = { true }
+        rows       = { 4 }
+        helperText = { visibleError && error }
+        error      = { visibleError }
+    />
 }
 
 function FlashcardContent(props) {
     return (
         <div>
-            <Field
-                name = 'faceA'
-                component = { FaceField }
-            />
-            <Field
-                name = 'faceB'
-                component = { FaceField }
-            />
+            <div>
+                <Field
+                    name = 'faceA'
+                    component = { FaceField }
+                    type = 'textfield'
+                    validate = { validation }
+                    label = 'Flashcard Front'
+                />
+            </div>
+            <div>
+                <Field
+                    name = 'faceB'
+                    component = { FaceField }
+                    type = 'textfield'
+                    validate = { validation }
+                    label = 'Flashcard Back'
+                /> 
+            </div>
         </div>
     )
 }
 
-function FlashcardActions(props) {
+function FlashcardButton(props) {
     return (
-        <div>
-            <Button onClick = { props.onCancel }>Cancel</Button>
-            <Button type="submit">Submit</Button>
-        </div>
+        <Button onClick={props.openDialog} fab>
+            <AddIcon />
+        </Button>
     )
 }
 
@@ -46,11 +72,9 @@ function FlashcardNewForm(props) {
             title    = "Create Flashcard"
             onSubmit = { onSubmit }
             content  = { FlashcardContent }
-            actions  = { FlashcardActions }
-            open     = { props.open }
+            button   = { FlashcardButton }
         />
     )
 }
 
 export default FlashcardNewForm
-// export default FormDialogWrapper(FlashcardNewForm)

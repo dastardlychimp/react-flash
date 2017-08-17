@@ -1,34 +1,57 @@
 import React from 'react'
 import { reduxForm, Form, Field } from 'redux-form'
 // material-ui
+import Button from 'material-ui/Button'
 import Dialog, { 
     DialogContent, 
     DialogTitle,
     DialogActions
 } from 'material-ui/Dialog'
 
-function FormDialog(props) {
-    console.log(props)
+import boundPropsComponent from './BoundPropsComponent'
+import DialogWithOpenButton from '../DialogWithOpenButton'
+
+function FormActions(props) {
+    return (
+        <div>
+            <Button onClick = { props.closeDialog }>Cancel</Button>
+            <Button type="submit">Submit</Button>
+        </div>
+    )
+}
+
+function FormDialogContent(props) {
+    const {
+        handleSubmit,
+        onSubmit,
+        title,
+        content,
+        actions = FormActions,
+        ...rest
+    } = props
+
     const submit = props.handleSubmit
-        ? props.handleSubmit(props.onSubmit)
+        ? props.handleSubmit(onSubmit)
         : props.onSubmit
 
     return (
-        <Dialog open = { props.open }>
+        <div>
             <DialogTitle>
-                { props.title }
+                { title }
             </DialogTitle>
-            <form onSubmit={submit}>
+            <form onSubmit = { submit }>
                 <DialogContent>
-                    { React.createElement( props.content, props ) }
+                    { React.createElement( content, rest ) }
                 </DialogContent>
                 <DialogActions>
-                    { React.createElement( props.actions, props ) }
+                    { React.createElement( actions, rest ) }
                 </DialogActions>
             </form>
-        </Dialog>
+        </div>
     )
 }
+
+const FormDialog = boundPropsComponent({ component: FormDialogContent })(DialogWithOpenButton)
 
 export default function formDialog(formName) {
     return reduxForm({

@@ -8,11 +8,6 @@ import FlashcardListItem from './FlashcardListItem'
 import FlashcardNewForm from './FlashcardNewForm'
 
 class FlashcardList extends React.Component {
-    state = { open: false }
-
-    open  = () => this.setState({ open: true })
-    close = () => this.setState({ open: false })
-
     render() {
         return (
             <div>
@@ -24,13 +19,7 @@ class FlashcardList extends React.Component {
                         />
                     ))
                 }
-                <Button onClick = { this.open } >
-                    Open
-                </Button>
-                <FlashcardNewForm 
-                    open = { this.state.open }
-                    onSubmit = { this.close }
-                />
+                <FlashcardNewForm />
             </div>
         )
     }

@@ -19,7 +19,9 @@ class FlashcardList extends React.Component {
                         />
                     ))
                 }
-                <FlashcardNewForm />
+                <FlashcardNewForm
+                    onSubmit = {console.log}
+                />
             </div>
         )
     }

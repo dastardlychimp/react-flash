@@ -30,9 +30,7 @@ function FormDialogContent(props) {
         ...rest
     } = props
 
-    const submit = props.handleSubmit
-        ? props.handleSubmit(onSubmit)
-        : props.onSubmit
+    const submit = handleSubmit((form) => onSubmit(form, props))
 
     return (
         <div>

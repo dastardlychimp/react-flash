@@ -4,13 +4,14 @@ import { reduxForm, Form, Field } from 'redux-form'
 
 //material-ui
 import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button'
-import Dialog, { DialogContent, DialogActions, DialogTitle }from 'material-ui/Dialog'
 
+import formDialog from './high/formDialog'
+import ButtonNew from './ButtonNew'
+import callIfFunction from '../helpers/callIfFunction'
 import { required, noneOfProps } from '../helpers/validation'
 import { createFlashcardSet } from '../actions/index'
 
-
+const SetFormDialog = formDialog('newSet')
 const validation = [
     required,
     noneOfProps('setsNames', value => `You already have a set named ${value}`)
@@ -35,38 +36,41 @@ function NameField(field) {
     )
 }
 
-function FlashcardSetNewForm(props) {
-    const submit = (form) => {
-        props.createFlashcardSet(form.name)
-        props.onSubmit()
-        props.reset()
-    }
-
+function SetContent(props) {
     return (
-        <Dialog open = { props.open }>
-            <DialogTitle>
-                Create Flashcard Set
-            </DialogTitle>
-            <form onSubmit={props.handleSubmit(submit)}>
-                <DialogContent>
-                    <Field 
-                        name       = 'name' 
-                        component  = { NameField }
-                        validate   = { validation }
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick= {props.onCancel}>Cancel</Button>
-                    <Button type = 'submit' color="primary">Submit</Button>
-                </DialogActions>
-            </form>
-        </Dialog>
+        <Field 
+            name       = 'name' 
+            component  = { NameField }
+            validate   = { validation }
+        />
     )
 }
 
-const CreateForm = reduxForm({ 
-    form: 'newSet',
-})(FlashcardSetNewForm)
+function SetButton(props) {
+    const { openDialog } = props
+    return <ButtonNew onClick = { openDialog } /> 
+}
+
+function FlashcardSetNewForm(props) {
+    const { onSubmit, createFlashcardSet } = props
+
+    const submit = (form, props) => {
+        const { closeDialog, reset } = props
+        createFlashcardSet(form.name)
+        callIfFunction(onSubmit, form)
+        closeDialog()
+        reset()
+    }
+    
+    return (
+        <SetFormDialog
+            title    = 'Create Set'
+            content  = { SetContent }   
+            button   = { SetButton }
+            onSubmit = { submit }
+        />
+    )
+}
 
 function mapStateToProps(state, props) {
     return {
@@ -79,4 +83,4 @@ const mapDispatchToProps = {
     createFlashcardSet
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateForm)
+export default connect(mapStateToProps, mapDispatchToProps)(FlashcardSetNewForm)

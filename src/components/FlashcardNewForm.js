@@ -1,11 +1,10 @@
 import React from 'react'
 import { Form, Field } from 'redux-form'
 // material-ui
-import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
-import AddIcon from 'material-ui-icons/Add'
 
 import formDialog from './high/formDialog'
+import ButtonNew from './ButtonNew'
 import { required } from '../helpers/validation'
 
 const FlashcardFormDialog = formDialog('newFlashcard')
@@ -54,23 +53,16 @@ function FlashcardContent(props) {
 }
 
 function FlashcardButton(props) {
-    return (
-        <Button onClick={props.openDialog} fab>
-            <AddIcon />
-        </Button>
-    )
+    const { openDialog } = props
+    return <ButtonNew onClick = { openDialog } /> 
 }
 
 function FlashcardNewForm(props) {
-    const onSubmit = (form) => {
-        props.onSubmit && props.onSubmit()
-        console.log(form)
-    }
+    const { onSubmit } = props
 
     return (
         <FlashcardFormDialog
-            title    = "Create Flashcard"
-            onSubmit = { onSubmit }
+            title    = 'Create Flashcard'
             content  = { FlashcardContent }
             button   = { FlashcardButton }
         />

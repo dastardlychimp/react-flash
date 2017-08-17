@@ -1,30 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-// material-ui
-import Button from 'material-ui/Button'
-
 import FlashcardListItem from './FlashcardListItem'
 import FlashcardNewForm from './FlashcardNewForm'
 
-class FlashcardList extends React.Component {
-    render() {
-        return (
-            <div>
-                { 
-                    this.props.flashcards.map((flashcard) => (
-                        <FlashcardListItem
-                            key = { flashcard.id }
-                            flashcard = { flashcard } 
-                        />
-                    ))
-                }
-                <FlashcardNewForm
-                    onSubmit = {console.log}
-                />
-            </div>
-        )
-    }
+function FlashcardList(props) {
+    return (
+        <div>
+            { 
+                props.flashcards.map((flashcard) => (
+                    <FlashcardListItem
+                        key = { flashcard.id }
+                        flashcard = { flashcard } 
+                    />
+                ))
+            }
+            <FlashcardNewForm 
+                setId = { props.setId }
+            />
+        </div>
+    )
 }
 
 function mapStateToProps(state, props) {
@@ -32,6 +27,7 @@ function mapStateToProps(state, props) {
     const set   = state.sets.find((set) => set.id == setId)
 
     return {
+        setId,
         flashcards: set.flashcards
     }
 }

@@ -16,3 +16,8 @@ export const createFlashcardSet = (name)  => ({
     type: 'FLASHCARD_SET_CREATE',
     payload: name
 })
+
+export const createFlashcard = ({setId, front, back}) => ({
+    type: 'FLASHCARD_CREATE',
+    payload: { setId, front, back }
+})

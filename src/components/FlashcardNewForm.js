@@ -1,11 +1,14 @@
 import React from 'react'
-import { Form, Field } from 'redux-form'
+import { connect } from 'react-redux'
+import { Field } from 'redux-form'
 // material-ui
 import TextField from 'material-ui/TextField'
 
 import formDialog from './high/formDialog'
 import ButtonNew from './ButtonNew'
+import callIfFunction from '../helpers/callIfFunction'
 import { required } from '../helpers/validation'
+import { createFlashcard } from '../actions'
 
 const FlashcardFormDialog = formDialog('newFlashcard')
 const validation = [
@@ -32,7 +35,7 @@ function FlashcardContent(props) {
         <div>
             <div>
                 <Field
-                    name = 'faceA'
+                    name = 'front'
                     component = { FaceField }
                     type = 'textfield'
                     validate = { validation }
@@ -41,7 +44,7 @@ function FlashcardContent(props) {
             </div>
             <div>
                 <Field
-                    name = 'faceB'
+                    name = 'back'
                     component = { FaceField }
                     type = 'textfield'
                     validate = { validation }
@@ -58,15 +61,37 @@ function FlashcardButton(props) {
 }
 
 function FlashcardNewForm(props) {
-    const { onSubmit } = props
+    const { onSubmit, createFlashcard, setId } = props
+
+    const submit = (form, props) => {
+        console.log(form)
+        createFlashcard(form)
+        callIfFunction(onSubmit, form)
+        props.reset()
+        props.closeDialog()
+    }
 
     return (
         <FlashcardFormDialog
             title    = 'Create Flashcard'
             content  = { FlashcardContent }
             button   = { FlashcardButton }
+            onSubmit = { submit }
+            initialValues = { { setId } }
         />
     )
 }
 
-export default FlashcardNewForm
+function mapStateToProps(state, props) {
+    const { setId } = props
+
+    return {
+        setId,
+    }
+}
+
+const mapDispatchToProps = {
+    createFlashcard
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FlashcardNewForm)

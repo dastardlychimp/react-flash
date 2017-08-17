@@ -4,7 +4,7 @@ import React from 'react'
 // material-ui
 import Card, { CardContent } from 'material-ui/Card'
 
-// { id: 12521, faceA: 'Moo?', faceB: 'Cow' }
+// { id: 12521, front: 'Moo?', back: 'Cow' }
 class FlashcardListItem extends React.PureComponent {
     state = { face: true }
 
@@ -19,7 +19,7 @@ class FlashcardListItem extends React.PureComponent {
             <div>
                 <Card onClick = { this.flip }>
                     <CardContent>
-                        { this.state.face ? flashcard.faceA : flashcard.faceB }
+                        { this.state.face ? flashcard.front : flashcard.back }
                     </CardContent>
                 </Card>
             </div>

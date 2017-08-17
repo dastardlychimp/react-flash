@@ -16,16 +16,16 @@ const testState = {
             id: 15,
             name: 'Farm Animals',
             flashcards: [
-                { id: 12521, faceA: 'Moo?', faceB: 'Cow' },
-                { id: 35251, faceA: 'Quack?', faceB: 'Duck'}
+                { id: 12521, front: 'Moo?', back: 'Cow' },
+                { id: 35251, front: 'Quack?', back: 'Duck'}
             ]
         },
         {
             id: 62,
             name: 'Hess Family',
             flashcards: [
-                { id: 14, faceA: 'Oldest Child', faceB: 'Darien' },
-                { id: 35251, faceA: 'Youngest Child', faceB: 'Jameson'}
+                { id: 14, front: 'Oldest Child', back: 'Darien' },
+                { id: 35251, front: 'Youngest Child', back: 'Jameson'}
             ]
         }
     ]

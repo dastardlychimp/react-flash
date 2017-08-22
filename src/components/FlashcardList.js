@@ -3,20 +3,24 @@ import { connect } from 'react-redux'
 
 import FlashcardListItem from './FlashcardListItem'
 import FlashcardNewForm from './FlashcardNewForm'
+import { deleteFlashcard } from '../actions'
 
 function FlashcardList(props) {
+    const { setId, flashcards, deleteFlashcard } = props
+
     return (
         <div>
             { 
-                props.flashcards.map((flashcard) => (
+                flashcards.map((flashcard) => (
                     <FlashcardListItem
                         key = { flashcard.id }
-                        flashcard = { flashcard } 
+                        flashcard = { flashcard }
+                        onDelete = { deleteFlashcard.bind(this, setId, flashcard.id) }
                     />
                 ))
             }
             <FlashcardNewForm 
-                setId = { props.setId }
+                setId = { setId }
             />
         </div>
     )
@@ -32,4 +36,8 @@ function mapStateToProps(state, props) {
     }
 }
 
-export default connect(mapStateToProps)(FlashcardList)
+const mapDispathToProps = {
+    deleteFlashcard
+}
+
+export default connect(mapStateToProps, mapDispathToProps)(FlashcardList)

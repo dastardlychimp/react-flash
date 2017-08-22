@@ -13,10 +13,29 @@ export default function reducerSets(state = [], action) {
                     flashcards: [fc, ...set.flashcards]
                 }
             })
+        case 'FLASHCARD_DELETE':
+            return deleteFlashcardAction(state, action)
         default:
             return state
     }
 }
+
+const deleteFlashcardAction = (state, action) => {
+    console.log(action)
+    console.log(action.payload)
+    console.log(action.payload['setId'])
+    const { setId, flashcardId } = action.payload
+    return modifySet(state, setId, (set) => {
+        return {
+            ...set,
+            flashcards: deleteFlashcard(set.flashcards, flashcardId)
+        }
+    })
+}
+
+const deleteFlashcard = (flashcards, id) => (
+    flashcards.filter(flashcard => flashcard.id !== id)
+)
 
 const deleteSet = (sets, id) => (
     sets.filter(set => set.id !== id)

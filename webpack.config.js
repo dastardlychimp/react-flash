@@ -2,27 +2,35 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const GoogleFontsPlugin = require("google-fonts-webpack-plugin")
 
+const outputPath = __dirname + '/build'
+
 module.exports = {
     entry: {
         app: './src/index.js'
     },
     output: {
         filename: '[name].bundle.js',
-        path: __dirname + '/build',
-        publicPath: '/'
+        path: outputPath,
+        publicPath: '/',
+        pathinfo: true
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'React-Flash'
         }),
         new webpack.HotModuleReplacementPlugin(),
+        new webpack.DllReferencePlugin({
+            context: '.',
+            manifest: require(outputPath + '/reactPackages.json'),
+
+        })
         // new GoogleFontsPlugin({
         //     fonts: [
         //         { family: "Roboto", variants: [ "400", "700italic" ] }
         //     ]
         // })
     ],
-    devtool: 'inline-source-map',
+    devtool: 'eval',
     devServer: {
         contentBase: './build',
         hot: true,
@@ -40,7 +48,10 @@ module.exports = {
             {
                 test: /(\.js$)|(\.jsx$)/,
                 exclude: [/node_modules/, /tests/],
-                loader: 'babel-loader'
+                use: [
+                    'cache-loader',
+                    'babel-loader'
+                ]
             }
         ]
     }

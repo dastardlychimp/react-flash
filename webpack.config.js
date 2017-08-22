@@ -20,9 +20,8 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DllReferencePlugin({
-            context: '.',
+            context: outputPath,
             manifest: require(outputPath + '/reactPackages.json'),
-
         })
         // new GoogleFontsPlugin({
         //     fonts: [

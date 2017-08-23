@@ -11,16 +11,16 @@ import DeleteIcon from 'material-ui-icons/Delete'
 import CreateIcon from 'material-ui-icons/Create'
 import ChromeReaderModeIcon from 'material-ui-icons/ChromeReaderMode'
 
-import reactComponentWithOpenState from '../helpers/reactComponentWithOpenState'
 import ConfirmDelete from './ConfirmDelete'
 import callableList from '../helpers/callableList'
 
 
-class FlashcardSetListItem extends reactComponentWithOpenState(true) {
-    constructor(props) {
-        super(props)
-        this.state     = this.stateOpenInit()
-        this.deleteSet = this.props.deleteSet.bind(this, this.props.set.id)
+class FlashcardSetListItem extends React.PureComponent {
+    state     = { openDelete: false }
+    deleteSet = this.props.deleteSet.bind(this, this.props.set.id)
+
+    toggleDelete = () => {
+        this.setState({ openDelete: ! this.state.openDelete})    
     }
 
     render() {
@@ -30,13 +30,12 @@ class FlashcardSetListItem extends reactComponentWithOpenState(true) {
             <ListItem
                 divider
                 button
-                onClick = {}
             >
-                 <ConfirmDelete
-                    onDelete = { callableList(this.deleteSet, this.stateOpenFalse ) }
+                <ConfirmDelete
+                    onDelete = { callableList(this.deleteSet, this.toggleDelete) }
                     onCancel = { this.stateOpenFalse }
                     message = "Are you sure you want to delete this flashcard set?"
-                    open = { this.stateOpenGet() }
+                    open = { this.state.openDelete }
                 /> 
                 <Badge badgeContent = { set.size } color = "primary">
                     <ChromeReaderModeIcon />
@@ -46,7 +45,7 @@ class FlashcardSetListItem extends reactComponentWithOpenState(true) {
                     <ButtonIcon>
                         <CreateIcon />
                     </ButtonIcon>
-                    <ButtonIcon onClick = { this.stateOpenTrue } >
+                    <ButtonIcon onClick = { this.toggleDelete } >
                         <DeleteIcon />
                     </ButtonIcon>
                 </ListItemSecondaryAction>

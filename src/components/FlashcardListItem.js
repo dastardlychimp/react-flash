@@ -17,18 +17,18 @@ class FlashcardListItem extends React.PureComponent {
         this.setState({ face: ! this.state.face })
     }
 
-    toggleDelete = () => {
-        this.setState({ openDelete: !this.state.openDelete })
+    toggleDelete = (e) => {
+        this.setState({ openDelete: ! this.state.openDelete })
     }
 
     render() {
         const { flashcard, onDelete } = this.props
+        const { face, openDelete }    = this.state
 
         return (
-            <div>
                 <Card onClick = { this.flip }>
                     <CardContent>
-                        { this.state.face ? flashcard.front : flashcard.back }
+                        { face ? flashcard.front : flashcard.back }
                     </CardContent>
                     <CardActions>
                         <IconButton onClick={ this.toggleDelete }>
@@ -38,11 +38,10 @@ class FlashcardListItem extends React.PureComponent {
                             onDelete = { callableList(onDelete, this.toggleDelete) }
                             onCancel = { this.toggleDelete }
                             message = 'Are you sure you want to delete this flashcard?'
-                            open = { this.state.openDelete }
+                            open = { openDelete }
                         />
                     </CardActions>
                 </Card>
-            </div>
         )
     }
 }

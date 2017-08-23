@@ -20,8 +20,9 @@ class FlashcardSetListItem extends React.PureComponent {
     state     = { openDelete: false }
     deleteSet = this.props.deleteSet.bind(this, this.props.set.id)
 
-    toggleDelete = () => {
-        this.setState({ openDelete: ! this.state.openDelete})    
+    toggleDelete = (e) => {
+        this.setState({ openDelete: ! this.state.openDelete})
+        e.preventDefault()
     }
 
     render() {
@@ -35,7 +36,7 @@ class FlashcardSetListItem extends React.PureComponent {
                 >
                     <ConfirmDelete
                         onDelete = { callableList(this.deleteSet, this.toggleDelete) }
-                        onCancel = { this.stateOpenFalse }
+                        onCancel = { this.toggleDelete }
                         message = "Are you sure you want to delete this flashcard set?"
                         open = { this.state.openDelete }
                     /> 

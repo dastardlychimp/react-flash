@@ -30,7 +30,7 @@ function FlashcardSetList(props) {
 }
 
 function setSize(setId, flashcards) {
-    return flashcards.filter((fc) => fc.setId === setId).length
+    return flashcards.filter((fc) => fc.setId == setId).length
 }
 
 function mapStateToProps(state) {

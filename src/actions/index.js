@@ -22,7 +22,7 @@ export const createFlashcard = ({setId, front, back}) => ({
     payload: { setId, front, back }
 })
 
-export const deleteFlashcard = (setId, flashcardId) => ({
+export const deleteFlashcard = (flashcardId) => ({
     type: 'FLASHCARD_DELETE',
-    payload: { setId, flashcardId }
+    payload: flashcardId
 })

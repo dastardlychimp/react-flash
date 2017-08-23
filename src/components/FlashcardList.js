@@ -15,7 +15,7 @@ function FlashcardList(props) {
                     <FlashcardListItem
                         key = { flashcard.id }
                         flashcard = { flashcard }
-                        onDelete = { deleteFlashcard.bind(this, setId, flashcard.id) }
+                        onDelete = { deleteFlashcard.bind(this, flashcard.id) }
                     />
                 ))
             }
@@ -28,11 +28,11 @@ function FlashcardList(props) {
 
 function mapStateToProps(state, props) {
     const setId = props.match.params.id
-    const set   = state.sets.find((set) => set.id == setId)
+    const flashcards = state.flashcards.filter((flashcard) => flashcard.setId == setId)
 
     return {
         setId,
-        flashcards: set.flashcards
+        flashcards
     }
 }
 

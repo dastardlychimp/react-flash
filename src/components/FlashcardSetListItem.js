@@ -30,6 +30,7 @@ class FlashcardSetListItem extends reactComponentWithOpenState(true) {
             <ListItem
                 divider
                 button
+                onClick = {}
             >
                  <ConfirmDelete
                     onDelete = { callableList(this.deleteSet, this.stateOpenFalse ) }
@@ -37,7 +38,7 @@ class FlashcardSetListItem extends reactComponentWithOpenState(true) {
                     message = "Are you sure you want to delete this flashcard set?"
                     open = { this.stateOpenGet() }
                 /> 
-                <Badge badgeContent = { set.flashcards.length } color = "primary">
+                <Badge badgeContent = { set.size } color = "primary">
                     <ChromeReaderModeIcon />
                 </Badge>
                 <ListItemText primary = { set.name } /> 

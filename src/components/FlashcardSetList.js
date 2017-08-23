@@ -29,7 +29,15 @@ function FlashcardSetList(props) {
     )
 }
 
-function mapStateToProps({ sets }) {
+function setSize(setId, flashcards) {
+    return flashcards.filter((fc) => fc.setId === setId).length
+}
+
+function mapStateToProps(state) {
+    const sets = state.sets.map((set) => {
+        set.size = setSize(set.id, state.flashcards)
+        return set
+    })
     return { sets }
 }
 

@@ -12,6 +12,7 @@ import CreateIcon from 'material-ui-icons/Create'
 import ChromeReaderModeIcon from 'material-ui-icons/ChromeReaderMode'
 
 import ConfirmDelete from './ConfirmDelete'
+import UnstyledLink from './UnstyledLink'
 import callableList from '../helpers/callableList'
 
 
@@ -27,29 +28,31 @@ class FlashcardSetListItem extends React.PureComponent {
         const set = this.props.set
 
         return(
-            <ListItem
-                divider
-                button
-            >
-                <ConfirmDelete
-                    onDelete = { callableList(this.deleteSet, this.toggleDelete) }
-                    onCancel = { this.stateOpenFalse }
-                    message = "Are you sure you want to delete this flashcard set?"
-                    open = { this.state.openDelete }
-                /> 
-                <Badge badgeContent = { set.size } color = "primary">
-                    <ChromeReaderModeIcon />
-                </Badge>
-                <ListItemText primary = { set.name } /> 
-                <ListItemSecondaryAction>
-                    <ButtonIcon>
-                        <CreateIcon />
-                    </ButtonIcon>
-                    <ButtonIcon onClick = { this.toggleDelete } >
-                        <DeleteIcon />
-                    </ButtonIcon>
-                </ListItemSecondaryAction>
-            </ListItem>
+            <UnstyledLink to = {`/sets/${set.id}`}>
+                <ListItem
+                    divider
+                    button
+                >
+                    <ConfirmDelete
+                        onDelete = { callableList(this.deleteSet, this.toggleDelete) }
+                        onCancel = { this.stateOpenFalse }
+                        message = "Are you sure you want to delete this flashcard set?"
+                        open = { this.state.openDelete }
+                    /> 
+                    <Badge badgeContent = { set.size } color = "primary">
+                        <ChromeReaderModeIcon />
+                    </Badge>
+                    <ListItemText primary = { set.name } /> 
+                    <ListItemSecondaryAction>
+                        <ButtonIcon>
+                            <CreateIcon />
+                        </ButtonIcon>
+                        <ButtonIcon onClick = { this.toggleDelete } >
+                            <DeleteIcon />
+                        </ButtonIcon>
+                    </ListItemSecondaryAction>
+                </ListItem>
+            </UnstyledLink>
         )
     }
 }

@@ -15,6 +15,7 @@ class DialogWithOpenButton extends React.PureComponent {
     render() {
         const nextProps = {
             closeDialog: this.close,
+            openDialog: this.open,
             ...this.props
         }
 
@@ -28,7 +29,7 @@ class DialogWithOpenButton extends React.PureComponent {
                         React.createElement(this.props.component, nextProps)
                     }
                 </Dialog>
-                { React.createElement(this.props.button, { openDialog: this.open }) }
+                { React.createElement(this.props.button, nextProps) }
             </div>
         )
     }

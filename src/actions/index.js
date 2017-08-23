@@ -12,8 +12,13 @@ export const deleteFlashcardSet = (setId) => ({
     payload: setId
 })
 
-export const createFlashcardSet = (name)  => ({
+export const createFlashcardSet = (set)  => ({
     type: 'FLASHCARD_SET_CREATE',
+    payload: set
+})
+
+export const updateFlashcardSet = ({name}) => ({
+    type: 'FLASHCARD_SET_UPDATE',
     payload: name
 })
 

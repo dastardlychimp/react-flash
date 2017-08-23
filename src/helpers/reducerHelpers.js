@@ -51,6 +51,22 @@ export function objectCombine(obj1, obj2) {
     }
 }
 
+export function objectModify(obj, prop, transform) {
+    const { [prop]: value } = obj
+
+    return {
+        ...obj,
+        [prop]: transform(value),
+    }
+}
+
+export function objectReplace(obj, prop, value) {
+    return {
+        ...obj,
+        [prop]: value
+    }
+}
+
 export function generateTestId() {
     return Math.floor(Math.random() * Math.pow(10, 7))
 } 

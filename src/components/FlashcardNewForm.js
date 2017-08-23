@@ -9,8 +9,9 @@ import ButtonNew from './ButtonNew'
 import callIfFunction from '../helpers/callIfFunction'
 import { required } from '../helpers/validation'
 import { createFlashcard } from '../actions'
+import { forms, formShow, formHide } from '../actions/forms'
 
-const FlashcardFormDialog = formDialog('newFlashcard')
+const FlashcardFormDialog = formDialog(forms.flashcard)
 const validation = [
     required
 ]
@@ -56,41 +57,59 @@ function FlashcardContent(props) {
 }
 
 function FlashcardButton(props) {
-    const { openDialog } = props
-    return <ButtonNew onClick = { openDialog } /> 
+    const { formOpen } = props
+    return <ButtonNew onClick = { formOpen } /> 
 }
 
 function FlashcardNewForm(props) {
-    const { onSubmit, createFlashcard, setId } = props
+    const {
+        open,
+        onSubmit,
+        createFlashcard,
+        setId,
+        formOpen,
+        formClose,
+    } = props
 
     const submit = (form, props) => {
         createFlashcard(form)
         callIfFunction(onSubmit, form)
+        formClose()
         props.reset()
-        props.closeDialog()
     }
 
     return (
+        <div>
         <FlashcardFormDialog
             title    = 'Create Flashcard'
             content  = { FlashcardContent }
             button   = { FlashcardButton }
             onSubmit = { submit }
+            onCancel = { formClose }
             initialValues = { { setId } }
+            open = { open }
         />
+        <FlashcardButton formOpen = { formOpen } />
+        </div>
     )
 }
 
 function mapStateToProps(state, props) {
     const { setId } = props
+    const {
+        formVisibility: { [forms.flashcard]: open }
+    } = state
 
     return {
         setId,
+        open
     }
 }
 
 const mapDispatchToProps = {
-    createFlashcard
+    createFlashcard,
+    formOpen:  formShow.bind(this, forms.flashcard),
+    formClose: formHide.bind(this, forms.flashcard)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FlashcardNewForm)

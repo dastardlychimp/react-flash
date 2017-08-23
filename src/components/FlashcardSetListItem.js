@@ -13,8 +13,8 @@ import ChromeReaderModeIcon from 'material-ui-icons/ChromeReaderMode'
 
 import ConfirmDelete from './ConfirmDelete'
 import UnstyledLink from './UnstyledLink'
+import FlashcardSetForm from './FlashcardSetNewForm'
 import callableList from '../helpers/callableList'
-
 
 class FlashcardSetListItem extends React.PureComponent {
     state     = { openDelete: false }
@@ -22,6 +22,10 @@ class FlashcardSetListItem extends React.PureComponent {
 
     toggleDelete = (e) => {
         this.setState({ openDelete: ! this.state.openDelete})
+        e.preventDefault()
+    }
+
+    openSetForm = (e) => {
         e.preventDefault()
     }
 
@@ -45,7 +49,7 @@ class FlashcardSetListItem extends React.PureComponent {
                     </Badge>
                     <ListItemText primary = { set.name } /> 
                     <ListItemSecondaryAction>
-                        <ButtonIcon>
+                        <ButtonIcon onClick = { this.openSetForm }>
                             <CreateIcon />
                         </ButtonIcon>
                         <ButtonIcon onClick = { this.toggleDelete } >

@@ -26,7 +26,7 @@ const testState = {
         { setId: 15, id: 35251, front: 'Quack?', back: 'Duck'},
         { setId: 62, id: 14, front: 'Oldest Child', back: 'Darien' },
         { setId: 62, id: 3521, front: 'Youngest Child', back: 'Jameson'}
-    ]
+    ],
 }
 
 const sagaMiddleware   = createSagaMiddleware()

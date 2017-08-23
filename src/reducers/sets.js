@@ -12,9 +12,6 @@ export default function reducerSets(state = [], action) {
 }
 
 const createSet = (state, action) => {
-    const newSet = {
-        name: action.payload,
-        id: rh.generateTestId()
-    }
+    const newSet = rh.objectAdd(action.payload, 'id', rh.generateTestId())
     return rh.arrayAdd(state, newSet)
 }

@@ -23,8 +23,7 @@ function FlashcardSetList(props) {
                     })
                 }
             </List>
-            <FlashcardSetNew
-            />
+            <FlashcardSetNew />
         </div>
     )
 }

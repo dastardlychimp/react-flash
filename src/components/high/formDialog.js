@@ -8,20 +8,20 @@ import Dialog, {
     DialogActions
 } from 'material-ui/Dialog'
 
-import boundPropsComponent from './BoundPropsComponent'
 import DialogWithOpenButton from '../DialogWithOpenButton'
 
 function FormActions(props) {
     return (
         <div>
-            <Button onClick = { props.closeDialog }>Cancel</Button>
+            <Button onClick = { props.onCancel }>Cancel</Button>
             <Button type="submit">Submit</Button>
         </div>
     )
 }
 
-function FormDialogContent(props) {
+function FormDialog(props) {
     const {
+        open,
         handleSubmit,
         onSubmit,
         title,
@@ -33,7 +33,10 @@ function FormDialogContent(props) {
     const submit = handleSubmit((form) => onSubmit(form, props))
 
     return (
-        <div>
+        <Dialog 
+            open = { open }
+            onRequestClose = { props.onCancel }
+        >
             <DialogTitle>
                 { title }
             </DialogTitle>
@@ -45,11 +48,9 @@ function FormDialogContent(props) {
                     { React.createElement( actions, rest ) }
                 </DialogActions>
             </form>
-        </div>
+        </Dialog>
     )
 }
-
-const FormDialog = boundPropsComponent({ component: FormDialogContent })(DialogWithOpenButton)
 
 export default function formDialog(formName) {
     return reduxForm({

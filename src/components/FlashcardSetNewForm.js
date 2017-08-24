@@ -9,7 +9,7 @@ import formDialog from './high/formDialog'
 import ButtonNew from './ButtonNew'
 import callIfFunction from '../helpers/callIfFunction'
 import { required, noneOfProps } from '../helpers/validation'
-import { createFlashcardSet, updateFlashcardSet } from '../actions/index'
+import { createFlashcardSet } from '../actions/index'
 import { forms, formShow, formHide } from '../actions/forms'
 
 const SetFormDialog = formDialog(forms.set)
@@ -58,15 +58,10 @@ function FlashcardSetForm(props) {
         setsNames,
         onSubmit,
         createFlashcardSet,
-        updateFlashcardSet,
         formClose,
         formOpen,
         open
     } = props
-
-    const action = props.update
-        ? updateFlashcardSet
-        : createFlashcardSet
 
     const submit = (form, props) => {
         const { closeDialog, reset } = props
@@ -96,11 +91,6 @@ function FlashcardSetForm(props) {
 
 function mapStateToProps(state, props) {
     const {
-        initialValues = {},
-        ...rest
-    } = props
-
-    const {
         sets,
         formVisibility: {[forms.set]: open }
     } = state
@@ -108,8 +98,7 @@ function mapStateToProps(state, props) {
     return {
         setsNames: sets.map((set) => set.name),
         open,
-        initialValues,
-        ...rest
+        ...props
     }
 }
 

@@ -25,4 +25,6 @@ export const formHide = (form) => {
     }
 }
 
-// export const openForm = ()
+export const initialValuesSet = (set) => {
+    return initialize(forms.set, set)
+}

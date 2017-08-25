@@ -8,14 +8,18 @@ import TextField from 'material-ui/TextField'
 import formDialog from './high/formDialog'
 import ButtonNew from './ButtonNew'
 import callIfFunction from '../helpers/callIfFunction'
-import { required, noneOfProps } from '../helpers/validation'
+import { required, noneOfProps, testProps } from '../helpers/validation'
 import { createFlashcardSet } from '../actions/index'
 import { forms, formShow, formHide } from '../actions/forms'
 
 const SetFormDialog = formDialog(forms.set)
+
 const validation = [
     required,
-    noneOfProps('setsNames', value => `You already have a set named ${value}`)
+    testProps(
+        (props) => ! props.initialValues || ! props.initialValues.id,
+        noneOfProps('setsNames', (value) => `You already have a set named ${value}`)
+    )
 ]
 
 function NameField(field) {
@@ -64,10 +68,9 @@ function FlashcardSetForm(props) {
     } = props
 
     const submit = (form, props) => {
-        const { closeDialog, reset } = props
-        action(form)
+        const { reset } = props
+        createFlashcardSet(form)
         callIfFunction(onSubmit, form)
-        formClose()
         reset()
     }
     
@@ -104,7 +107,6 @@ function mapStateToProps(state, props) {
 
 const mapDispatchToProps = {
     createFlashcardSet,
-    updateFlashcardSet,
     formClose: formHide.bind(this, forms.set),
     formOpen:  formShow.bind(this, forms.set)
 }
